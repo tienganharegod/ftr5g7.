@@ -1,0 +1,1327 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ms Lê Hằng English - IELTS Reading Mock Test</title>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-pink: #ff80ab;
+      --primary-purple: #8854c0;
+      --accent-teal: #00C9A7;
+      --accent-yellow: #FDCB6E;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --correct-color: #00D26A;
+      --wrong-color: #FF4757;
+      --highlight-bg: #d1c4e9;
+      --highlight-color: #ffffff;
+      --text-dark: #2d3436;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    html, body {
+      height: 100%;
+      width: 100%;
+      overflow: hidden; /* Khóa cuộn trang chính để tạo 2 cột cuộn độc lập */
+    }
+
+    body {
+      background: linear-gradient(-45deg, #ff80ab, #8854c0, #00C9A7, #FDCB6E, #ffcdd2, #e1bee7);
+      background-size: 400% 400%;
+      animation: gradientBG 12s ease infinite;
+      color: var(--text-dark);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="120" height="120" viewBox="0 0 120 120"><text x="10" y="30" font-size="22">🎨</text><text x="70" y="35" font-size="20">🚲</text><text x="20" y="85" font-size="20">🏃‍♂️</text><text x="80" y="90" font-size="22">🌈</text><text x="50" y="60" font-size="18">🌟</text></svg>');
+      opacity: 0.22;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    @keyframes gradientBG {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    header {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(10px);
+      border-bottom: 3px solid #f8bbd0;
+      padding: 8px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.06);
+      z-index: 10;
+      flex-shrink: 0;
+    }
+
+    .brand-title h1 {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      line-height: 1.2;
+    }
+
+    .brand-title h2 {
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: #e91e63;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+    }
+
+    .timer-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: #fff;
+      padding: 4px 14px;
+      border-radius: 25px;
+      box-shadow: 0 3px 0 #e0e0e0;
+      border: 2px solid #f0f0f0;
+    }
+
+    .timer-display {
+      font-size: 1.1rem;
+      font-weight: 900;
+      color: #d81b60;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .btn-timer {
+      background: var(--primary-pink);
+      color: white;
+      border: none;
+      padding: 5px 12px;
+      border-radius: 18px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #d81b60;
+      transition: all 0.2s ease;
+      font-size: 0.8rem;
+    }
+
+    .btn-timer:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 0 #d81b60;
+    }
+
+    .progress-bar-wrapper {
+      width: 100%;
+      background: #e0e0e0;
+      height: 8px;
+      border-radius: 4px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .progress-bar-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--accent-yellow), var(--correct-color));
+      border-radius: 4px;
+      transition: width 0.4s ease;
+    }
+
+    .tab-bar {
+      display: flex;
+      background: rgba(255,255,255,0.7);
+      padding: 6px 20px 0;
+      gap: 8px;
+      z-index: 9;
+      flex-shrink: 0;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      padding: 8px 16px;
+      background: #fff;
+      border: 2px solid #f8bbd0;
+      border-bottom: none;
+      border-radius: 12px 12px 0 0;
+      font-weight: 800;
+      color: #666;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-size: 0.85rem;
+      white-space: nowrap;
+    }
+
+    .tab-btn.active {
+      background: var(--primary-purple);
+      color: white;
+      border-color: var(--primary-purple);
+      transform: translateY(-2px);
+    }
+
+    /* BỐ CỤC CHÍNH HAI CỘT CUỘN ĐỘC LẬP */
+    .main-container {
+      display: flex;
+      flex: 1;
+      min-height: 0;
+      gap: 15px;
+      padding: 10px 15px 15px;
+      z-index: 1;
+      overflow: hidden;
+    }
+
+    .split-pane {
+      flex: 1;
+      height: 100%;
+      background: var(--card-bg);
+      border-radius: 20px;
+      box-shadow: 0 8px 25px rgba(0,0,0,0.08);
+      border: 3px solid #fff;
+      overflow-y: scroll; /* THANH TRƯỢT DỌC ĐỘC LẬP TỪNG PHẦN */
+      padding: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .split-pane::-webkit-scrollbar {
+      width: 10px;
+    }
+    .split-pane::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.05);
+      border-radius: 10px;
+    }
+    .split-pane::-webkit-scrollbar-thumb {
+      background: var(--primary-pink);
+      border-radius: 10px;
+      border: 2px solid #fff;
+    }
+    .split-pane::-webkit-scrollbar-thumb:hover {
+      background: var(--primary-purple);
+    }
+
+    .passage-title {
+      font-size: 1.25rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      margin-bottom: 12px;
+      text-align: center;
+      border-bottom: 2px dashed #f8bbd0;
+      padding-bottom: 8px;
+    }
+
+    .paragraph-block {
+      margin-bottom: 16px;
+      background: #fff;
+      padding: 14px;
+      border-radius: 15px;
+      border: 2px solid #f3e5f5;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.02);
+      line-height: 1.7;
+      font-size: 0.98rem;
+    }
+
+    .trans-toggle-btn {
+      margin-top: 8px;
+      background: #f3e5f5;
+      color: #6a1b9a;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 12px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .trans-toggle-btn:hover {
+      background: #e1bee7;
+    }
+
+    .translation-text {
+      display: none;
+      margin-top: 8px;
+      padding: 10px;
+      background: #fce4ec;
+      border-left: 4px solid var(--primary-pink);
+      border-radius: 8px;
+      font-size: 0.9rem;
+      color: #4a148c;
+      line-height: 1.6;
+    }
+
+    .sentence-target {
+      background-color: #fff59d !important;
+      border-radius: 4px;
+      padding: 2px 4px;
+      box-shadow: 0 0 10px #fbc02d;
+      animation: pulseHighlight 2s infinite;
+    }
+
+    @keyframes pulseHighlight {
+      0% { background-color: #fff59d; }
+      50% { background-color: #ffe082; }
+      100% { background-color: #fff59d; }
+    }
+
+    ::selection {
+      background-color: #d1c4e9;
+      color: #ffffff;
+    }
+
+    .custom-highlight {
+      background-color: #d1c4e9 !important;
+      color: #ffffff !important;
+      font-weight: bold;
+      border-radius: 4px;
+      padding: 1px 3px;
+    }
+
+    /* CSS Visual Signs Drawing */
+    .sign-card-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      margin: 15px 0;
+      border: 2px dashed #ce93d8;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+    }
+
+    .sign-no-turn {
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      border: 8px solid #d63031;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      background: #fff;
+    }
+
+    .sign-no-turn::before {
+      content: "";
+      position: absolute;
+      width: 80px;
+      height: 8px;
+      background: #d63031;
+      transform: rotate(-45deg);
+    }
+
+    .sign-bike-lane {
+      background: #0984e3;
+      border-radius: 12px;
+      padding: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      box-shadow: 0 4px 0 #0056b3;
+      max-width: 200px;
+      width: 100%;
+    }
+
+    .glossary-section {
+      margin-top: 25px;
+      background: #fff;
+      border-radius: 15px;
+      padding: 15px;
+      border: 2px solid #e1bee7;
+    }
+
+    .glossary-title {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-bottom: 12px;
+    }
+
+    .glossary-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .glossary-table th, .glossary-table td {
+      border: 1px solid #f8bbd0;
+      padding: 6px 8px;
+      text-align: left;
+    }
+
+    .glossary-table th {
+      background: #f8bbd0;
+      color: #8854c0;
+      font-weight: 800;
+    }
+
+    .glossary-table tr:nth-child(even) {
+      background: #fcf4f8;
+    }
+
+    .question-card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 20px;
+      border: 3px solid #f0f0f0;
+      box-shadow: 0 5px 0 #e0e0e0;
+      transition: transform 0.2s;
+    }
+
+    .question-card:hover {
+      transform: translateY(-2px);
+    }
+
+    .question-number {
+      font-weight: 900;
+      color: var(--primary-purple);
+      font-size: 1.05rem;
+      margin-bottom: 8px;
+    }
+
+    .question-text {
+      font-size: 0.98rem;
+      font-weight: 700;
+      margin-bottom: 12px;
+      color: #333;
+      line-height: 1.5;
+    }
+
+    .mcq-options {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .mcq-btn {
+      background: #f8f9fa;
+      border: 2px solid #e9ecef;
+      border-radius: 14px;
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      box-shadow: 0 3px 0 #dee2e6;
+      transition: all 0.15s ease;
+      color: #495057;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .mcq-btn:hover {
+      background: #fce4ec;
+      border-color: var(--primary-pink);
+      transform: scale(1.01);
+    }
+
+    .mcq-btn.correct {
+      background: var(--correct-color) !important;
+      color: white !important;
+      border-color: #00b853 !important;
+      box-shadow: 0 4px 0 #009624 !important;
+    }
+
+    .mcq-btn.wrong {
+      background: var(--wrong-color) !important;
+      color: white !important;
+      border-color: #d63031 !important;
+      box-shadow: 0 4px 0 #c0392b !important;
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      20%, 60% { transform: translateX(-6px); }
+      40%, 80% { transform: translateX(6px); }
+    }
+
+    .explanation-box {
+      display: none;
+      margin-top: 15px;
+      background: #f3e5f5;
+      border-radius: 14px;
+      padding: 14px;
+      border-left: 5px solid var(--primary-purple);
+      font-size: 0.9rem;
+      animation: fadeIn 0.3s ease;
+      line-height: 1.6;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(5px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .exp-step-title {
+      font-weight: 800;
+      color: var(--primary-purple);
+      margin-top: 8px;
+    }
+
+    .btn-locate {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: #fff;
+      color: #6a1b9a;
+      border: 2px solid #ab47bc;
+      padding: 5px 12px;
+      border-radius: 20px;
+      font-weight: 800;
+      font-size: 0.8rem;
+      cursor: pointer;
+      margin-top: 10px;
+      box-shadow: 0 2px 0 #ab47bc;
+      transition: all 0.2s;
+    }
+
+    .btn-locate:hover {
+      background: #ab47bc;
+      color: white;
+    }
+
+    .action-bar {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .btn-submit-test {
+      background: linear-gradient(45deg, #FF4081, #7C4DFF);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 900;
+      padding: 12px 35px;
+      border: none;
+      border-radius: 30px;
+      box-shadow: 0 5px 0 #c2185b;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .btn-submit-test:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 7px 0 #c2185b;
+    }
+
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 100;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .modal-card {
+      background: #fff;
+      border-radius: 25px;
+      padding: 30px;
+      width: 90%;
+      max-width: 450px;
+      text-align: center;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      border: 4px solid var(--primary-pink);
+      animation: popUp 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popUp {
+      from { transform: scale(0.6); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-score {
+      font-size: 2.8rem;
+      font-weight: 900;
+      color: var(--primary-purple);
+      margin: 12px 0;
+    }
+
+    .modal-badge {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #e91e63;
+      margin-bottom: 15px;
+    }
+
+    #confetti-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 99;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <!-- Header Bar -->
+  <header>
+    <div class="brand-title">
+      <h1>Ms Lê Hằng English</h1>
+      <h2>IELTS READING MOCK TEST</h2>
+    </div>
+
+    <div class="timer-container">
+      <span style="font-size: 1.1rem;">⏱️</span>
+      <div id="timerDisplay" class="timer-display">20:00</div>
+      <button id="btnTimerControl" class="btn-timer" onclick="toggleTimer()">BẮT ĐẦU TÍNH GIỜ LÀM BÀI</button>
+    </div>
+  </header>
+
+  <!-- Progress Bar -->
+  <div style="padding: 0 20px; background: rgba(255,255,255,0.85);">
+    <div class="progress-bar-wrapper">
+      <div id="progressBarFill" class="progress-bar-fill"></div>
+    </div>
+  </div>
+
+  <!-- Passage Tabs -->
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="switchTab(1)">Bài 1: Basic Information About Colour (Q1-Q5)</button>
+    <button class="tab-btn" onclick="switchTab(2)">Bài 2: Traffic & Cycle Signs (Section VIII)</button>
+    <button class="tab-btn" onclick="switchTab(3)">Bài 3: Body Exercise & Health (Section XI)</button>
+  </div>
+
+  <div class="main-container">
+
+    <!-- LEFT PANE: READING PASSAGES & VISUAL NOTICES (Cuộn riêng bên trái) -->
+    <div class="split-pane" id="passagePane">
+      
+      <!-- TAB 1 CONTENT: COLOUR PASSAGE -->
+      <div id="passage1" class="passage-content">
+        <h2 class="passage-title">READING PASSAGE: COLOURS AND COLOUR WHEEL</h2>
+        
+        <div class="paragraph-block">
+          <p>
+            <span id="p1-s1" class="sentence">Artists use colour to create patterns.</span> 
+            <span id="p1-s2" class="sentence">Colour can also show different moods.</span> 
+            <span id="p1-s3" class="sentence">Bright colours make us feel happy and energetic.</span> 
+            <span id="p1-s4" class="sentence">Dark colours make us feel calm or sad.</span> 
+            <span id="p1-s5" class="sentence">The primary colours are red, yellow, and blue.</span> 
+            <span id="p1-s6" class="sentence">They are the colours that can be mixed together to make different colours.</span> 
+            <span id="p1-s7" class="sentence">Mixing two primary colours makes a secondary colour.</span> 
+            <span id="p1-s8" class="sentence">The secondary colours are orange, green, and violet.</span> 
+            <span id="p1-s9" class="sentence">Orange is made by mixing yellow and red.</span> 
+            <span id="p1-s10" class="sentence">Green is made by mixing yellow and blue.</span> 
+            <span id="p1-s11" class="sentence">Violet is made by mixing red and blue.</span> 
+            <span id="p1-s12" class="sentence">Intermediate colours can be made by mixing two primary colours and a secondary colour together.</span> 
+            <span id="p1-s13" class="sentence">Some intermediate colours are blue violet and red orange.</span> 
+            <span id="p1-s14" class="sentence">Black, white, and gray are special colours.</span> 
+            <span id="p1-s15" class="sentence">They are called neutral colours.</span> 
+            <span id="p1-s16" class="sentence">Colours have been organized into a colour wheel.</span> 
+            <span id="p1-s17" class="sentence">It shows the three primary colours, the three secondary colours, and the six intermediate colours.</span> 
+            <span id="p1-s18" class="sentence">Artists use the colour wheel to help them know which colours they want to use together.</span>
+          </p>
+          <button class="trans-toggle-btn" onclick="toggleTranslation('trans1')">🌟 Mở dịch đoạn này</button>
+          <div id="trans1" class="translation-text">
+            Các họa sĩ sử dụng màu sắc để tạo ra các họa tiết. Màu sắc cũng có thể thể hiện các tâm trạng khác nhau. Các màu sắc tươi sáng làm cho chúng ta cảm thấy vui vẻ và tràn đầy năng lượng. Các màu tối làm cho chúng ta cảm thấy bình tĩnh hoặc buồn băn. Các màu cơ bản (màu gốc) là đỏ, vàng và xanh lam. Chúng là những màu có thể được pha trộn với nhau để tạo ra các màu sắc khác nhau. Trộn hai màu cơ bản với nhau sẽ tạo ra một màu thứ cấp. Các màu thứ cấp là cam, xanh lá cây và tím. Màu cam được tạo ra bằng cách trộn màu vàng và màu đỏ. Màu xanh lá cây được tạo ra bằng cách trộn màu vàng và màu xanh lam. Màu tím được tạo ra bằng cách trộn màu đỏ và màu xanh lam. Các màu trung gian có thể được tạo ra bằng cách trộn các màu cơ bản và màu thứ cấp lại với nhau. Một số màu trung gian là xanh tím và đỏ cam. Màu đen, màu trắng và màu xám là những màu đặc biệt. Chúng được gọi là các màu trung tính. Màu sắc đã được sắp xếp thành một vòng tròn màu. Nó hiển thị 3 màu cơ bản, 3 màu thứ cấp và 6 màu trung gian. Các họa sĩ sử dụng vòng tròn màu để giúp họ biết những màu sắc nào họ muốn kết hợp cùng nhau.
+          </div>
+        </div>
+
+        <!-- Glossary Bài 1 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 1 (Colours & Colour Wheel)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Pattern</td><td>(n)</td><td>Họa tiết, hoa văn</td><td>Design, motif, arrangement</td></tr>
+              <tr><td>Mood</td><td>(n)</td><td>Tâm trạng, cảm xúc</td><td>State of mind, feeling, temper</td></tr>
+              <tr><td>Energetic</td><td>(adj)</td><td>Tràn đầy năng lượng</td><td>Vigorous, lively, active</td></tr>
+              <tr><td>Primary colours</td><td>(n phr)</td><td>Màu cơ bản, màu gốc</td><td>Base colours (Red, Yellow, Blue)</td></tr>
+              <tr><td>Secondary colours</td><td>(n phr)</td><td>Màu thứ cấp</td><td>Mixed colours (Orange, Green, Violet)</td></tr>
+              <tr><td>Intermediate colours</td><td>(n phr)</td><td>Màu trung gian</td><td>Tertiary colours (Red-orange, etc.)</td></tr>
+              <tr><td>Neutral colours</td><td>(n phr)</td><td>Màu trung tính</td><td>Achromatic colours (Black, White, Gray)</td></tr>
+              <tr><td>Colour wheel</td><td>(n phr)</td><td>Vòng tròn màu sắc</td><td>Chromatic circle, colour spectrum</td></tr>
+              <tr><td>Organize</td><td>(v)</td><td>Sắp xếp, tổ chức</td><td>Arrange, structure, order</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 2 CONTENT: TRAFFIC & CYCLE SIGNS -->
+      <div id="passage2" class="passage-content" style="display:none;">
+        <h2 class="passage-title">SECTION VIII: TRAFFIC & CYCLE SIGNS</h2>
+        
+        <!-- Sign 1: No Left Turn -->
+        <div class="sign-card-wrapper">
+          <div class="sign-no-turn">
+            <span style="font-size:2rem; margin-right:5px; transform:scaleX(-1);">↰</span>
+          </div>
+          <p style="margin-top:8px; font-weight:800; color:#555;">Sign 1: No Left Turn Road Sign</p>
+        </div>
+
+        <!-- Sign 2: Cycle Route -->
+        <div class="sign-card-wrapper">
+          <div class="sign-bike-lane">🚲</div>
+          <p style="margin-top:8px; font-weight:800; color:#555;">Sign 2: Recommended Bike Route Sign</p>
+        </div>
+
+        <!-- Glossary Bài 2 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 2 (Traffic & Cycle Signs)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Prohibition</td><td>(n)</td><td>Sự cấm đoán</td><td>Ban, restriction, embargo</td></tr>
+              <tr><td>Vehicle</td><td>(n)</td><td>Phương tiện giao thông</td><td>Automobile, transport, craft</td></tr>
+              <tr><td>Recommended</td><td>(adj)</td><td>Được khuyên dùng/gợi ý</td><td>Advised, suggested, preferred</td></tr>
+              <tr><td>Route</td><td>(n)</td><td>Tuyến đường, lộ trình</td><td>Path, track, way, course</td></tr>
+              <tr><td>Give way</td><td>(v phr)</td><td>Nhường đường</td><td>Yield, allow priority</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- TAB 3 CONTENT: EXERCISE & HEALTH -->
+      <div id="passage3" class="passage-content" style="display:none;">
+        <h2 class="passage-title">SECTION XI: BODY EXERCISE AND HEALTH</h2>
+        
+        <div class="paragraph-block">
+          <p>
+            <span id="p3-s1" class="sentence">The body needs exercise.</span> 
+            <span id="p3-s2" class="sentence">Exercise uses up food and keeps the body strong. (1) ____________ .</span> 
+            <span id="p3-s3" class="sentence">Exercise also makes you feel good.</span> 
+            <span id="p3-s4" class="sentence">If you exercise a few times a week, you will stay healthy and happy.</span> 
+            <span id="p3-s5" class="sentence">Some people in America do not get enough exercise. (2) ____________ .</span> 
+            <span id="p3-s6" class="sentence">They live far from their offices, and they have to drive their cars to get to work.</span> 
+            <span id="p3-s7" class="sentence">Therefore, when they get home at night, (3) ____________ .</span> 
+            <span id="p3-s8" class="sentence">Today, many Americans are overweight. (4) ____________ .</span> 
+            <span id="p3-s9" class="sentence">Doctors say that exercise can help people both lose weight and improve their health.</span> 
+            <span id="p3-s10" class="sentence">So, many people are trying to get more exercise.</span> 
+            <span id="p3-s11" class="sentence">But it takes time to change, and when people do not see a difference right away, they lose interest in exercising.</span>
+          </p>
+
+          <div style="background:#fff8e1; border:2px solid #ffe082; padding:12px; border-radius:12px; margin-top:10px; font-size:0.9rem;">
+            <strong>Các câu đã bị rút khỏi đoạn văn:</strong><br>
+            <strong>A.</strong> They work in office buildings sitting in a chair all day in front of computers<br>
+            <strong>B.</strong> It makes your heart and muscles strong.<br>
+            <strong>C.</strong> This causes health problems for some people<br>
+            <strong>D.</strong> They don't want to exercise after work.
+          </div>
+
+          <button class="trans-toggle-btn" onclick="toggleTranslation('trans3')">🌟 Mở dịch đoạn này</button>
+          <div id="trans3" class="translation-text">
+            Cơ thể cần tập thể dục. Tập thể dục tiêu thụ thức ăn và giữ cho cơ thể khỏe mạnh. Nó làm cho tim và cơ bắp của bạn khỏe mạnh. Tập thể dục cũng làm cho bạn cảm thấy thoải mái. Nếu bạn tập thể dục một vài lần một tuần, bạn sẽ luôn khỏe mạnh và hạnh phúc. Một số người ở Mỹ không tập thể dục đầy đủ. Họ làm việc trong các tòa nhà văn phòng, ngồi trên ghế cả ngày trước máy tính. Họ sống xa văn phòng làm việc và họ phải lái xe ô tô để đi làm. Do đó, khi họ về nhà vào ban đêm, họ không muốn tập thể dục sau giờ làm việc. Ngày nay, nhiều người Mỹ bị thừa cân. Điều này gây ra các vấn đề sức khỏe cho một số người. Các bác sĩ nói rằng tập thể dục có thể giúp mọi người vừa giảm cân vừa cải thiện sức khỏe. Vì vậy, nhiều người đang cố gắng tập thể dục nhiều hơn. Nhưng cần có thời gian để thay đổi, và khi mọi người không thấy sự khác biệt ngay lập tức, họ sẽ mất hứng thú với việc tập thể dục.
+          </div>
+        </div>
+
+        <!-- Glossary Bài 3 -->
+        <div class="glossary-section">
+          <div class="glossary-title">📖 Vocabulary Bank - Bài 3 (Exercise & Health)</div>
+          <table class="glossary-table">
+            <thead>
+              <tr><th>Word</th><th>POS</th><th>Vietnamese Meaning</th><th>Synonym / Context</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Uses up</td><td>(phr v)</td><td>Tiêu thụ, xài hết</td><td>Consume, exhaust, spend</td></tr>
+              <tr><td>Muscles</td><td>(n)</td><td>Cơ bắp</td><td>Tissues, brawn</td></tr>
+              <tr><td>Overweight</td><td>(adj)</td><td>Thừa cân, béo phì</td><td>Obese, heavy, chubby</td></tr>
+              <tr><td>Improve</td><td>(v)</td><td>Cải thiện, nâng cao</td><td>Enhance, boost, upgrade</td></tr>
+              <tr><td>Difference</td><td>(n)</td><td>Sự khác biệt, sự thay đổi</td><td>Change, variation, distinction</td></tr>
+              <tr><td>Lose interest</td><td>(v phr)</td><td>Mất hứng thú/nguội lạnh</td><td>Become bored/disinterested</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- RIGHT PANE: INTERACTIVE EXERCISES (Cuộn riêng bên phải) -->
+    <div class="split-pane" id="exercisePane">
+      
+      <!-- CÂU HỎI BÀI 1 (TAB 1) -->
+      <div id="exerciseTab1" class="exercise-tab-content">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION VII: COLOURS AND COLOUR WHEEL (QUESTIONS 1 - 5)</h3>
+
+        <!-- Q1 -->
+        <div class="question-card" id="qcard-1">
+          <div class="question-number">Question 1 (Main Idea)</div>
+          <div class="question-text">What is the passage mainly about?</div>
+          <div class="mcq-options" id="opts-1" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('1', 'A', 'D')">A. Primary colours, secondary colours and intermediate colours</button>
+            <button class="mcq-btn" onclick="checkMCQ('1', 'B', 'D')">B. The ways to mix colours</button>
+            <button class="mcq-btn" onclick="checkMCQ('1', 'C', 'D')">C. Colour and its effects on our mood</button>
+            <button class="mcq-btn" onclick="checkMCQ('1', 'D', 'D')">D. Some basic information about colour</button>
+          </div>
+          <div class="explanation-box" id="exp-1">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Các màu cơ bản, thứ cấp và trung gian (chỉ là 1 phần thông tin phân loại màu).</p>
+            <p>B. Các cách pha màu (chỉ là 1 phần thông tin hướng dẫn trộn màu).</p>
+            <p>C. Màu sắc và tác động lên tâm trạng (chỉ là ý phụ 1 câu ở đầu bài).</p>
+            <p>D. Một số thông tin cơ bản về màu sắc (Some basic information about colour).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Đoạn văn chủ yếu nói về điều gì?"</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Đoạn văn tổng hợp nhiều kiến thức cơ bản về màu sắc: tác động tâm trạng, cách chia nhóm màu (primary, secondary, intermediate, neutral) và giới thiệu bảng xoay màu (colour wheel) -> Đáp án D bao quát trọn vẹn nhất.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B, C chỉ là các chi tiết nhỏ riêng lẻ nằm trong đoạn văn, không thể làm ý chính (Main Idea) cho toàn bài.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s1')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="qcard-2">
+          <div class="question-number">Question 2</div>
+          <div class="question-text">Which of the following is the correct way to make red orange from the three primary colours?</div>
+          <div class="mcq-options" id="opts-2" data-correct="A">
+            <button class="mcq-btn" onclick="checkMCQ('2', 'A', 'A')">A. Mix red and yellow, then mix the new colour with red.</button>
+            <button class="mcq-btn" onclick="checkMCQ('2', 'B', 'A')">B. Mix yellow and blue, then mix the new colour with red.</button>
+            <button class="mcq-btn" onclick="checkMCQ('2', 'C', 'A')">C. Mix red and blue, then mix the new colour with yellow.</button>
+            <button class="mcq-btn" onclick="checkMCQ('2', 'D', 'A')">D. Mix the three primary colours.</button>
+          </div>
+          <div class="explanation-box" id="exp-2">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Trộn đỏ và vàng (tạo màu cam), sau đó trộn màu mới đó với màu đỏ (tạo ra đỏ cam).</p>
+            <p>B. Trộn vàng và xanh lam (tạo xanh lá), sau đó trộn với màu đỏ.</p>
+            <p>C. Trộn đỏ và xanh lam (tạo màu tím), sau đó trộn với màu vàng.</p>
+            <p>D. Trộn cả ba màu cơ bản với nhau.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Phương pháp nào dưới đây là cách đúng để tạo ra màu đỏ cam (red orange) từ 3 màu cơ bản?"</p>
+            <div class="exp-step-title">3. Tại sao chọn A?</div>
+            <p>Dẫn chứng: "Orange is made by mixing yellow and red" (Màu cam được tạo từ vàng + đỏ) và "Intermediate colours can be made by mixing two primary colours and a secondary colour" (Màu trung gian tạo từ màu cơ bản + màu thứ cấp). Do đó trộn red + yellow -> orange, sau đó lấy orange + red -> red orange -> Chọn A.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>B pha ra màu khác (green + red). C pha ra (violet + yellow). D pha cả 3 màu cơ bản ra màu nâu/xám.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s9')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="qcard-3">
+          <div class="question-number">Question 3</div>
+          <div class="question-text">According to the passage, white is a ________.</div>
+          <div class="mcq-options" id="opts-3" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('3', 'A', 'C')">A. special colour</button>
+            <button class="mcq-btn" onclick="checkMCQ('3', 'B', 'C')">B. neutral colour</button>
+            <button class="mcq-btn" onclick="checkMCQ('3', 'C', 'C')">C. Both A and B</button>
+            <button class="mcq-btn" onclick="checkMCQ('3', 'D', 'C')">D. None of above</button>
+          </div>
+          <div class="explanation-box" id="exp-3">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. special colour: màu đặc biệt.</p>
+            <p>B. neutral colour: màu trung tính.</p>
+            <p>C. Both A and B: Cả A và B đều đúng.</p>
+            <p>D. None of above: Không đáp án nào đúng.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Theo đoạn văn, màu trắng (white) là một ______."</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Dẫn chứng hai câu liên tiếp: "Black, white, and gray are special colours. They are called neutral colours." -> Màu trắng vừa được gọi là special colour vừa được gọi là neutral colour -> Chọn C (Both A and B).</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>Chọn riêng A hoặc B sẽ bị thiếu thông tin. D sai hoàn toàn vì văn bản có đề cập rõ.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s14')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" id="qcard-4">
+          <div class="question-number">Question 4</div>
+          <div class="question-text">Which of the following can't be found in the colour wheel?</div>
+          <div class="mcq-options" id="opts-4" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('4', 'A', 'D')">A. Red orange</button>
+            <button class="mcq-btn" onclick="checkMCQ('4', 'B', 'D')">B. Green</button>
+            <button class="mcq-btn" onclick="checkMCQ('4', 'C', 'D')">C. Yellow</button>
+            <button class="mcq-btn" onclick="checkMCQ('4', 'D', 'D')">D. Black</button>
+          </div>
+          <div class="explanation-box" id="exp-4">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Red orange (màu trung gian - intermediate colour).</p>
+            <p>B. Green (màu thứ cấp - secondary colour).</p>
+            <p>C. Yellow (màu cơ bản - primary colour).</p>
+            <p>D. Black (màu trung tính - neutral colour).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Màu nào dưới đây KHÔNG TÌM THẤY trong vòng tròn màu sắc (colour wheel)?"</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Dẫn chứng: "It shows the three primary colours, the three secondary colours, and the six intermediate colours" (Nó hiển thị màu cơ bản, màu thứ cấp và màu trung gian). Màu đen (Black) thuộc nhóm neutral colours nên không nằm trên bảng colour wheel -> Chọn D.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A (intermediate), B (secondary), C (primary) đều có mặt trên vòng tròn màu sắc.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s17')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="question-card" id="qcard-5">
+          <div class="question-number">Question 5</div>
+          <div class="question-text">We can learn from the passage that ________.</div>
+          <div class="mcq-options" id="opts-5" data-correct="B">
+            <button class="mcq-btn" onclick="checkMCQ('5', 'A', 'B')">A. happy and energetic people like bright colours</button>
+            <button class="mcq-btn" onclick="checkMCQ('5', 'B', 'B')">B. the colour wheel has 12 colours</button>
+            <button class="mcq-btn" onclick="checkMCQ('5', 'C', 'B')">C. we can also mix different colours to make the primary colours</button>
+            <button class="mcq-btn" onclick="checkMCQ('5', 'D', 'B')">D. artists are the best ones to know and use colour</button>
+          </div>
+          <div class="explanation-box" id="exp-5">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Người vui vẻ và năng động thích các màu sáng (bài chỉ nói màu sáng làm ta vui vẻ, không phải người vui vẻ thích màu sáng).</p>
+            <p>B. Vòng tròn màu sắc có tổng cộng 12 màu (3 + 3 + 6 = 12 màu).</p>
+            <p>C. Chúng ta cũng có thể trộn các màu khác để tạo ra màu cơ bản (sai, màu cơ bản không pha từ màu khác được).</p>
+            <p>D. Các họa sĩ là những người giỏi nhất biết và sử dụng màu sắc (suy đoán không có trong bài).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu hỏi:</div>
+            <p>"Chúng ta có thể rút ra kết luận gì từ đoạn văn?"</p>
+            <div class="exp-step-title">3. Tại sao chọn B?</div>
+            <p>Dẫn chứng: "shows the three primary colours, the three secondary colours, and the six intermediate colours". Tổng số màu trên vòng tròn màu = 3 + 3 + 6 = 12 màu -> Chọn B.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A suy diễn nhầm lẫn nguyên nhân-kết quả. C phát biểu sai khoa học/bài đọc. D không được đề cập.</p>
+            <button class="btn-locate" onclick="locateEvidence('p1-s17')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU HỎI BÀI 2 (TAB 2) -->
+      <div id="exerciseTab2" class="exercise-tab-content" style="display:none;">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION VIII: TRAFFIC & CYCLE SIGNS (QUESTIONS 1 - 2)</h3>
+
+        <!-- Sign Q1 -->
+        <div class="question-card" id="qcard-s8-1">
+          <div class="question-number">Câu 1 (Section VIII - Sign 1)</div>
+          <div class="question-text">What does the sign say? (Red crossed left turn arrow)</div>
+          <div class="mcq-options" id="opts-s8-1" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('s8-1', 'A', 'D')">A. You should be careful on the left.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-1', 'B', 'D')">B. You should turn left.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-1', 'C', 'D')">C. You should give way to vehicles on the left.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-1', 'D', 'D')">D. You shouldn't turn left.</button>
+          </div>
+          <div class="explanation-box" id="exp-s8-1">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Bạn nên cẩn thận ở bên trái.</p>
+            <p>B. Bạn nên rẽ trái.</p>
+            <p>C. Bạn nên nhường đường cho xe bên trái.</p>
+            <p>D. Bạn không được / không nên rẽ trái (You shouldn't turn left).</p>
+            <div class="exp-step-title">2. Dịch nghĩa biển báo:</div>
+            <p>Biển báo hình tròn viền đỏ gạch chéo mũi tên rẽ trái = CẤM RẼ TRÁI.</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Biển cấm rẽ trái đồng nghĩa với "You shouldn't turn left" (Bạn không được phép rẽ trái) -> Chọn D.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B, C không diễn tả hành vi cấm rẽ trái.</p>
+          </div>
+        </div>
+
+        <!-- Sign Q2 -->
+        <div class="question-card" id="qcard-s8-2">
+          <div class="question-number">Câu 2 (Section VIII - Sign 2)</div>
+          <div class="question-text">What does the sign say? (Bike icon on blue background)</div>
+          <div class="mcq-options" id="opts-s8-2" data-correct="B">
+            <button class="mcq-btn" onclick="checkMCQ('s8-2', 'A', 'B')">A. No cycles are allowed.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-2', 'B', 'B')">B. This is a recommended route for bikes.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-2', 'C', 'B')">C. Cycles should give way.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s8-2', 'D', 'B')">D. This is not a recommended route for bikes.</button>
+          </div>
+          <div class="explanation-box" id="exp-s8-2">
+            <div class="exp-step-title">1. Phân tích 4 đáp án:</div>
+            <p>A. Không cho phép xe đạp đi vào.</p>
+            <p>B. Đây là tuyến đường dành riêng/được khuyên dùng cho xe đạp (This is a recommended route for bikes).</p>
+            <p>C. Xe đạp phải nhường đường.</p>
+            <p>D. Đây không phải tuyến đường cho xe đạp.</p>
+            <div class="exp-step-title">2. Dịch nghĩa biển báo:</div>
+            <p>Biển báo hình chữ nhật xanh có biểu tượng xe đạp trắng = BIỂN CHỈ DẪN LỘ TRÌNH/ĐƯỜNG DÀNH CHO XE ĐẠP.</p>
+            <div class="exp-step-title">3. Tại sao chọn B?</div>
+            <p>Biển chỉ dẫn nền xanh biểu thị tuyến đường khuyên dùng dành cho người đi xe đạp -> "This is a recommended route for bikes" -> Chọn B.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A và D nói cấm/không dành cho xe đạp. C nhầm sang biển nhường đường.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- CÂU HỎI BÀI 3 (TAB 3) -->
+      <div id="exerciseTab3" class="exercise-tab-content" style="display:none;">
+        <h3 style="color:var(--primary-purple); margin-bottom:15px;">SECTION XI: BODY EXERCISE AND HEALTH (QUESTIONS 1 - 4)</h3>
+
+        <!-- Q1 -->
+        <div class="question-card" id="qcard-s11-1">
+          <div class="question-number">Câu 1 (Section XI - Blank 1)</div>
+          <div class="question-text">Exercise uses up food and keeps the body strong. (1) _________. Exercise also makes you feel good.</div>
+          <div class="mcq-options" id="opts-s11-1" data-correct="B">
+            <button class="mcq-btn" onclick="checkMCQ('s11-1', 'A', 'B')">A. They work in office buildings sitting in a chair all day in front of computers</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-1', 'B', 'B')">B. It makes your heart and muscles strong.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-1', 'C', 'B')">C. This causes health problems for some people</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-1', 'D', 'B')">D. They don't want to exercise after work.</button>
+          </div>
+          <div class="explanation-box" id="exp-s11-1">
+            <div class="exp-step-title">1. Phân tích 4 lựa chọn:</div>
+            <p>A. Họ làm việc trong các tòa nhà văn phòng...</p>
+            <p>B. Nó làm cho tim và cơ bắp của bạn khỏe mạnh (It makes your heart and muscles strong).</p>
+            <p>C. Điều này gây ra các vấn đề sức khỏe...</p>
+            <p>D. Họ không muốn tập thể dục sau giờ làm.</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu 1:</div>
+            <p>"Tập thể dục tiêu thụ thức ăn và giữ cho cơ thể khỏe mạnh. [Nó làm cho tim và cơ bắp của bạn khỏe mạnh]. Tập thể dục cũng làm cho bạn cảm thấy thoải mái."</p>
+            <div class="exp-step-title">3. Tại sao chọn B?</div>
+            <p>Chủ ngữ "It" đại diện cho "Exercise". Câu B nối tiếp trực tiếp làm rõ hơn lợi ích thể chất "keeps the body strong" -> "makes your heart and muscles strong" -> Chọn B.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, C, D không khớp đại từ chỉ số ít "Exercise" (It) và không làm rõ ý nghĩa tăng cường sức khỏe cơ thể ở câu đầu.</p>
+            <button class="btn-locate" onclick="locateEvidence('p3-s2')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="question-card" id="qcard-s11-2">
+          <div class="question-number">Câu 2 (Section XI - Blank 2)</div>
+          <div class="question-text">Some people in America do not get enough exercise. (2) _________ They live far from their offices...</div>
+          <div class="mcq-options" id="opts-s11-2" data-correct="A">
+            <button class="mcq-btn" onclick="checkMCQ('s11-2', 'A', 'A')">A. They work in office buildings sitting in a chair all day in front of computers</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-2', 'B', 'A')">B. It makes your heart and muscles strong.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-2', 'C', 'A')">C. This causes health problems for some people</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-2', 'D', 'A')">D. They don't want to exercise after work.</button>
+          </div>
+          <div class="explanation-box" id="exp-s11-2">
+            <div class="exp-step-title">1. Phân tích 4 lựa chọn:</div>
+            <p>A. Họ làm việc trong các tòa nhà văn phòng, ngồi trên ghế cả ngày trước máy tính (They work in office buildings...).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu 2:</div>
+            <p>"Một số người ở Mỹ không tập thể dục đầy đủ. [Họ làm việc trong các tòa nhà văn phòng, ngồi trên ghế cả ngày trước máy tính]. Họ sống xa văn phòng..."</p>
+            <div class="exp-step-title">3. Tại sao chọn A?</div>
+            <p>Đoạn văn bắt đầu giải thích lý do vì sao người Mỹ không tập đủ thể dục: làm việc văn phòng thụ động (sitting all day) và phải đi làm xa -> Chọn A.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>B đã điền ở câu 1. C và D chưa phù hợp với vị trí mở đầu lý do môi trường làm việc.</p>
+            <button class="btn-locate" onclick="locateEvidence('p3-s5')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="question-card" id="qcard-s11-3">
+          <div class="question-number">Câu 3 (Section XI - Blank 3)</div>
+          <div class="question-text">Therefore, when they get home at night, (3) _________ . Today, many Americans are overweight.</div>
+          <div class="mcq-options" id="opts-s11-3" data-correct="D">
+            <button class="mcq-btn" onclick="checkMCQ('s11-3', 'A', 'D')">A. They work in office buildings sitting in a chair all day in front of computers</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-3', 'B', 'D')">B. It makes your heart and muscles strong.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-3', 'C', 'D')">C. This causes health problems for some people</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-3', 'D', 'D')">D. They don't want to exercise after work.</button>
+          </div>
+          <div class="explanation-box" id="exp-s11-3">
+            <div class="exp-step-title">1. Phân tích 4 lựa chọn:</div>
+            <p>D. Họ không muốn tập thể dục sau giờ làm (They don't want to exercise after work).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu 3:</div>
+            <p>"Do đó, khi họ về nhà vào ban đêm, [họ không muốn tập thể dục sau giờ làm]. Ngày nay, nhiều người Mỹ bị thừa cân."</p>
+            <div class="exp-step-title">3. Tại sao chọn D?</div>
+            <p>Liên từ "Therefore" (Do đó) kết nối lý do đi lái xe xa về nhà đêm muộn -> dẫn đến kết quả: họ lười/không muốn tập thể dục sau giờ làm -> Chọn D.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B đã dùng ở câu trước. C nói về hậu quả sức khỏe sẽ hợp hơn ở vị trí 4 đứng sau "overweight".</p>
+            <button class="btn-locate" onclick="locateEvidence('p3-s7')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="question-card" id="qcard-s11-4">
+          <div class="question-number">Câu 4 (Section XI - Blank 4)</div>
+          <div class="question-text">Today, many Americans are overweight. (4) _________ . Doctors say that exercise can help...</div>
+          <div class="mcq-options" id="opts-s11-4" data-correct="C">
+            <button class="mcq-btn" onclick="checkMCQ('s11-4', 'A', 'C')">A. They work in office buildings sitting in a chair all day in front of computers</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-4', 'B', 'C')">B. It makes your heart and muscles strong.</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-4', 'C', 'C')">C. This causes health problems for some people</button>
+            <button class="mcq-btn" onclick="checkMCQ('s11-4', 'D', 'C')">D. They don't want to exercise after work.</button>
+          </div>
+          <div class="explanation-box" id="exp-s11-4">
+            <div class="exp-step-title">1. Phân tích 4 lựa chọn:</div>
+            <p>C. Điều này gây ra các vấn đề sức khỏe cho một số người (This causes health problems for some people).</p>
+            <div class="exp-step-title">2. Dịch nghĩa câu 4:</div>
+            <p>"Ngày nay, nhiều người Mỹ bị thừa cân. [Điều này gây ra các vấn đề sức khỏe cho một số người]. Các bác sĩ nói rằng tập thể dục có thể giúp..."</p>
+            <div class="exp-step-title">3. Tại sao chọn C?</div>
+            <p>Từ đại từ "This" thay thế cho tình trạng "overweight" (thừa cân) đứng ở câu trước. Thừa cân gây ra tác hại sức khỏe, làm cầu nối cho lời khuyên của bác sĩ ở câu sau -> Chọn C.</p>
+            <div class="exp-step-title">4. Tại sao 3 đáp án còn lại SAI?</div>
+            <p>A, B, D đã được điền hợp lý ở các vị trí trước.</p>
+            <button class="btn-locate" onclick="locateEvidence('p3-s8')">🖱️ Vị trí dẫn chứng</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Bar Submit -->
+      <div class="action-bar">
+        <button class="btn-submit-test" onclick="submitTest()">🏆 NỘP BÀI THI</button>
+      </div>
+
+    </div>
+
+  </div>
+
+  <!-- Score Modal -->
+  <div class="modal-overlay" id="scoreModal">
+    <div class="modal-card">
+      <h2 style="color: var(--primary-purple); font-size: 1.8rem;">🎉 KẾT QUẢ BÀI THI 🎉</h2>
+      <div class="modal-score" id="scoreValue">0 / 11</div>
+      <div class="modal-badge" id="scoreBadge">THIÊN TÀI IELTS 9.0!</div>
+      <p id="scoreComment" style="color: #555; line-height: 1.5; font-weight: 700;">Em làm bài rất tuyệt vời!</p>
+      <button class="btn-submit-test" style="margin-top: 20px; font-size: 0.95rem; padding: 10px 25px;" onclick="closeModal()">ĐÓNG & XEM LẠI BÀI</button>
+    </div>
+  </div>
+
+  <script>
+    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+
+    function playCorrectSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(523.25, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(659.25, audioCtx.currentTime + 0.12);
+      osc.frequency.exponentialRampToValueAtTime(783.99, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.35);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.35);
+    }
+
+    function playWrongSound() {
+      if (audioCtx.state === 'suspended') audioCtx.resume();
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(220, audioCtx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(130.81, audioCtx.currentTime + 0.25);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.3);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start();
+      osc.stop(audioCtx.currentTime + 0.3);
+    }
+
+    let totalQuestions = 11;
+    let userAnswers = {};
+    let timerSeconds = 20 * 60;
+    let timerInterval = null;
+    let isTimerRunning = false;
+
+    function toggleTimer() {
+      const btn = document.getElementById('btnTimerControl');
+      if (!isTimerRunning) {
+        isTimerRunning = true;
+        btn.innerText = "TẠM DỪNG";
+        btn.style.background = "#ff9800";
+        timerInterval = setInterval(updateTimer, 1000);
+      } else {
+        isTimerRunning = false;
+        btn.innerText = "TIẾP TỤC";
+        btn.style.background = "#4caf50";
+        clearInterval(timerInterval);
+      }
+    }
+
+    function updateTimer() {
+      if (timerSeconds <= 0) {
+        clearInterval(timerInterval);
+        isTimerRunning = false;
+        document.getElementById('timerDisplay').innerText = "00:00";
+        alert("⏰ Đã hết giờ làm bài, vui lòng nộp bài nhé!");
+        disableInputs();
+        submitTest();
+        return;
+      }
+      timerSeconds--;
+      let m = Math.floor(timerSeconds / 60);
+      let s = timerSeconds % 60;
+      document.getElementById('timerDisplay').innerText = 
+        `${m < 10 ? '0' + m : m}:${s < 10 ? '0' + s : s}`;
+    }
+
+    function disableInputs() {
+      document.querySelectorAll('input, select, button.mcq-btn').forEach(el => {
+        el.disabled = true;
+      });
+    }
+
+    // CHUYỂN TAB ĐỘC LẬP TỪNG BÀI (Chỉ hiện đúng bài đọc & câu hỏi thuộc riêng Tab đó)
+    function switchTab(tabIndex) {
+      document.querySelectorAll('.tab-btn').forEach((btn, idx) => {
+        btn.classList.toggle('active', idx + 1 === tabIndex);
+      });
+
+      document.querySelectorAll('.passage-content').forEach((p, idx) => {
+        p.style.display = (idx + 1 === tabIndex) ? 'block' : 'none';
+      });
+
+      document.querySelectorAll('.exercise-tab-content').forEach((ex, idx) => {
+        ex.style.display = (idx + 1 === tabIndex) ? 'block' : 'none';
+      });
+
+      document.getElementById('passagePane').scrollTop = 0;
+      document.getElementById('exercisePane').scrollTop = 0;
+    }
+
+    function toggleTranslation(id) {
+      const el = document.getElementById(id);
+      el.style.display = (el.style.display === 'block') ? 'none' : 'block';
+    }
+
+    function updateProgress() {
+      let count = Object.keys(userAnswers).length;
+      let pct = (count / totalQuestions) * 100;
+      document.getElementById('progressBarFill').style.width = pct + '%';
+    }
+
+    function checkMCQ(qKey, chosenOptKey, correctOptKey) {
+      const container = document.getElementById(`opts-${qKey}`);
+      const btns = container.querySelectorAll('.mcq-btn');
+      const exp = document.getElementById(`exp-${qKey}`);
+
+      btns.forEach(btn => btn.disabled = true);
+      exp.style.display = 'block';
+
+      btns.forEach(btn => {
+        let optText = btn.innerText.trim();
+        let isChosen = optText.startsWith(chosenOptKey);
+        let isCorrect = optText.startsWith(correctOptKey);
+
+        if (isChosen) {
+          if (chosenOptKey === correctOptKey) {
+            btn.classList.add('correct');
+            playCorrectSound();
+            userAnswers[qKey] = true;
+            launchConfetti();
+          } else {
+            btn.classList.add('wrong');
+            playWrongSound();
+            userAnswers[qKey] = false;
+          }
+        }
+        if (isCorrect && chosenOptKey !== correctOptKey) {
+          btn.classList.add('correct');
+        }
+      });
+      updateProgress();
+    }
+
+    function locateEvidence(sentenceId) {
+      if (sentenceId.startsWith('p1')) switchTab(1);
+      else if (sentenceId.startsWith('p2')) switchTab(2);
+      else if (sentenceId.startsWith('p3')) switchTab(3);
+
+      document.querySelectorAll('.sentence').forEach(s => s.classList.remove('sentence-target'));
+      const target = document.getElementById(sentenceId);
+      if (target) {
+        target.classList.add('sentence-target');
+        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    }
+
+    document.addEventListener('mouseup', function() {
+      const selection = window.getSelection();
+      if (!selection.isCollapsed && selection.toString().trim().length > 0) {
+        const range = selection.getRangeAt(0);
+        const span = document.createElement('span');
+        span.className = 'custom-highlight';
+        try {
+          range.surroundContents(span);
+        } catch (e) {}
+      }
+    });
+
+    function shuffleOptionsOnLoad() {
+      document.querySelectorAll('.mcq-options').forEach(container => {
+        const buttons = Array.from(container.children);
+        for (let i = buttons.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1));
+          [buttons[i], buttons[j]] = [buttons[j], buttons[i]];
+        }
+        buttons.forEach(btn => container.appendChild(btn));
+      });
+    }
+
+    function submitTest() {
+      let score = 0;
+      for (let k in userAnswers) {
+        if (userAnswers[k] === true) score++;
+      }
+
+      document.getElementById('scoreValue').innerText = `${score} / ${totalQuestions}`;
+      const badge = document.getElementById('scoreBadge');
+      const comment = document.getElementById('scoreComment');
+
+      let pct = (score / totalQuestions) * 100;
+      if (pct === 100) {
+        badge.innerText = "🏆 THIÊN TÀI IELTS 9.0!";
+        comment.innerText = "Xuất sắc tuyệt đối! Em đã làm đúng 100% toàn bộ bài thi!";
+      } else if (pct >= 70) {
+        badge.innerText = "🌟 LÀM TỐT LẮM!";
+        comment.innerText = "Kỹ năng đọc hiểu rất ấn tượng! Đọc lại giải thích 4 bước để đạt điểm tuyệt đối nhé!";
+      } else if (pct >= 50) {
+        badge.innerText = "👍 KHÁ TỐT!";
+        comment.innerText = "Em đã làm tương đối tốt. Hãy đọc kỹ lại phần giải thích để cải thiện các câu làm sai!";
+      } else {
+        badge.innerText = "💪 CỐ LÊN NHÉ!";
+        comment.innerText = "Đừng nản lòng! Đọc kỹ các câu dịch và từ vựng mở rộng để sẵn sàng cho bài học tiếp theo!";
+      }
+
+      document.getElementById('scoreModal').style.display = 'flex';
+      launchConfetti();
+    }
+
+    function closeModal() {
+      document.getElementById('scoreModal').style.display = 'none';
+    }
+
+    function launchConfetti() {
+      const canvas = document.getElementById('confetti-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      let pieces = [];
+      const colors = ['#ff80ab', '#8854c0', '#00D26A', '#FDCB6E', '#00C9A7'];
+      
+      for (let i = 0; i < 70; i++) {
+        pieces.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height - canvas.height,
+          size: Math.random() * 8 + 4,
+          color: colors[Math.floor(Math.random() * colors.length)],
+          speed: Math.random() * 4 + 2,
+          rotation: Math.random() * 360,
+          rotSpeed: Math.random() * 6 - 3
+        });
+      }
+
+      let animationFrame;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        pieces.forEach(p => {
+          p.y += p.speed;
+          p.rotation += p.rotSpeed;
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate((p.rotation * Math.PI) / 180);
+          ctx.fillStyle = p.color;
+          ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+          ctx.restore();
+        });
+        pieces = pieces.filter(p => p.y < canvas.height);
+        if (pieces.length > 0) {
+          animationFrame = requestAnimationFrame(animate);
+        } else {
+          cancelAnimationFrame(animationFrame);
+        }
+      }
+      animate();
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      shuffleOptionsOnLoad();
+    });
+  </script>
+</body>
+</html>
